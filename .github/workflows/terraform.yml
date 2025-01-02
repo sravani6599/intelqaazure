@@ -1,0 +1,54 @@
+name: Deploy Terraform to Azure
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # Manual trigger support
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout code
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Set up Terraform
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.5.0 # Adjust based on your version
+
+    # Configure Azure credentials
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    # Terraform Init
+    - name: Terraform Init
+      run: terraform init
+
+    # Terraform Plan
+    - name: Terraform Plan
+      env:
+        ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+        
+      run: terraform plan -var="subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}" \
+                          -var="tenant_id=${{ secrets.AZURE_TENANT_ID }}" \
+                          
+
+    # Terraform Apply
+  #  - name: Terraform Apply
+   #   env:
+   #     ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+   #     ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+   #     ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+   #     ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+   #   run: terraform apply -auto-approve -var="subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}" \
+   #                        -var="tenant_id=${{ secrets.AZURE_TENANT_ID }}" \
+   #                        -var="client_id=${{ secrets.AZURE_CLIENT_ID }}" \
+   #                        -var="client_secret=${{ secrets.AZURE_CLIENT_SECRET }}"
