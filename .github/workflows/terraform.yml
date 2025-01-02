@@ -23,7 +23,7 @@ jobs:
     
     # Configure Azure credentials
     - name: Azure login
-      uses: azure/login@v2
+      uses: azure/login@v1
       with:
         tenant_id: ${{ secrets.AZURE_TENANT_ID }}
         subscription_id: ${{secrets.AZURE_SUBSCRIPTION_ID}}
