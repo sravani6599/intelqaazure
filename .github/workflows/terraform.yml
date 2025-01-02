@@ -25,8 +25,7 @@ jobs:
     - name: Azure login
       uses: azure/login@v1
       with:
-        tenant_id: ${{ secrets.AZURE_TENANT_ID }}
-        subscription_id: ${{secrets.AZURE_SUBSCRIPTION_ID}}
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
     # Terraform Init
    # - name: Terraform Init
     #  run: terraform init
