@@ -20,6 +20,8 @@ jobs:
       uses: hashicorp/setup-terraform@v2
       with:
         terraform_version: 1.5.0 # Adjust based on your version
+    - name: azure login
+      run: az login
 
     # Configure Azure credentials
     - name: Azure login
