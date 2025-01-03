@@ -30,6 +30,13 @@ jobs:
           auth-type: SERVICE_PRINCIPAL
           tenant_id: ${{ secrets.tenant_id }}
           subscription_id: ${{ secrets.subscription_id }}
+          enable-AzPSSession: false
+          environment: azurecloud
+          allow-no-subscriptions: false
+           
+      env:
+          TERRAFORM_CLI_PATH: /home/azureuser/actions-runner/_work/_temp/1dde1f88-2411-4396-881b-9667713c5b8c
+      
           
     # Terraform Init
    # - name: Terraform Init
