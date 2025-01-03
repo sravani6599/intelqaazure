@@ -26,8 +26,9 @@ jobs:
       uses: azure/login@v2
       with:
           auth-type: SERVICE_PRINCIPAL
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          tenant_id: ${{ secrets.tenant_id }}
+          subscription_id: ${{ secrets.subscription_id }}
+          
     # Terraform Init
    # - name: Terraform Init
     #  run: terraform init
